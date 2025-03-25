@@ -1,55 +1,6 @@
 // Initialize GSAP
 gsap.registerPlugin(ScrollTrigger);
 
-// Enhanced luxury cursor
-const cursor = document.querySelector('.cursor');
-const links = document.querySelectorAll('a, button, .gallery-item, .menu-item');
-
-document.addEventListener('mousemove', (e) => {
-    gsap.to(cursor, {
-        left: e.clientX,
-        top: e.clientY,
-        duration: 0.1
-    });
-});
-
-document.addEventListener('mousedown', () => {
-    gsap.to(cursor, {
-        width: 25,
-        height: 25,
-        duration: 0.2
-    });
-});
-
-document.addEventListener('mouseup', () => {
-    gsap.to(cursor, {
-        width: 30,
-        height: 30,
-        duration: 0.2
-    });
-});
-
-// Cursor effects on interactive elements
-links.forEach(link => {
-    link.addEventListener('mouseenter', () => {
-        gsap.to(cursor, {
-            width: 50,
-            height: 50,
-            borderWidth: 1,
-            duration: 0.3
-        });
-    });
-    
-    link.addEventListener('mouseleave', () => {
-        gsap.to(cursor, {
-            width: 30,
-            height: 30,
-            borderWidth: 2,
-            duration: 0.3
-        });
-    });
-});
-
 // Luxury header scroll effect
 window.addEventListener('scroll', () => {
     const header = document.querySelector('header');
@@ -65,18 +16,14 @@ const navSlide = () => {
     const burger = document.querySelector('.burger');
     const nav = document.querySelector('.nav-links');
     const navLinks = document.querySelectorAll('.nav-links li');
+    const overlay = document.querySelector('.nav-overlay');
     const body = document.body;
     
-    burger.addEventListener('click', () => {
-        // Toggle Nav
-        nav.classList.toggle('nav-active');
-        
-        // Toggle body scroll
-        if (nav.classList.contains('nav-active')) {
-            body.style.overflow = 'hidden';
-        } else {
-            body.style.overflow = 'auto';
-        }
+    // Function to open menu
+    const openMenu = () => {
+        nav.classList.add('nav-active');
+        overlay.classList.add('active');
+        body.style.overflow = 'hidden';
         
         // Animate Links
         navLinks.forEach((link, index) => {
@@ -88,20 +35,44 @@ const navSlide = () => {
         });
         
         // Burger Animation
-        burger.classList.toggle('toggle');
+        burger.classList.add('toggle');
+    };
+    
+    // Function to close menu
+    const closeMenu = () => {
+        nav.classList.remove('nav-active');
+        overlay.classList.remove('active');
+        body.style.overflow = 'auto';
+        
+        navLinks.forEach(link => {
+            link.style.animation = '';
+        });
+        
+        burger.classList.remove('toggle');
+    };
+    
+    // Toggle menu when burger is clicked
+    burger.addEventListener('click', () => {
+        if (nav.classList.contains('nav-active')) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
     });
     
-    // Close menu when clicking on a link
+    // Close menu when overlay is clicked
+    overlay.addEventListener('click', closeMenu);
+    
+    // Close menu when a link is clicked
     navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            nav.classList.remove('nav-active');
-            burger.classList.remove('toggle');
-            body.style.overflow = 'auto';
-            
-            navLinks.forEach(link => {
-                link.style.animation = '';
-            });
-        });
+        link.addEventListener('click', closeMenu);
+    });
+    
+    // Close menu when escape key is pressed
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && nav.classList.contains('nav-active')) {
+            closeMenu();
+        }
     });
 };
 
@@ -932,3 +903,128 @@ const fixCTAButtons = () => {
 };
 
 fixCTAButtons();
+
+// Chef Section Animations
+gsap.from('.chefs h2', {
+    scrollTrigger: {
+        trigger: '.chefs',
+        start: 'top 80%'
+    },
+    duration: 1,
+    y: 50,
+    opacity: 0,
+    ease: 'power3.out'
+});
+
+// Adjust animation for single chef layout
+gsap.from('.single-chef .chef-card', {
+    scrollTrigger: {
+        trigger: '.chefs-container',
+        start: 'top 80%'
+    },
+    duration: 1,
+    opacity: 0,
+    ease: 'power3.out'
+});
+
+gsap.from('.single-chef .chef-image', {
+    scrollTrigger: {
+        trigger: '.chefs-container',
+        start: 'top 80%'
+    },
+    duration: 1,
+    x: -50,
+    opacity: 0,
+    ease: 'power3.out',
+    delay: 0.3
+});
+
+gsap.from('.single-chef .chef-info', {
+    scrollTrigger: {
+        trigger: '.chefs-container',
+        start: 'top 80%'
+    },
+    duration: 1,
+    x: 50,
+    opacity: 0,
+    ease: 'power3.out',
+    delay: 0.5
+});
+
+// Add hover animations for chef cards
+const chefCards = document.querySelectorAll('.chef-card');
+chefCards.forEach(card => {
+    card.addEventListener('mouseenter', () => {
+        gsap.to(card, {
+            y: -10,
+            duration: 0.4,
+            ease: 'power2.out',
+            boxShadow: '0 20px 30px rgba(0, 0, 0, 0.15)'
+        });
+    });
+    
+    card.addEventListener('mouseleave', () => {
+        gsap.to(card, {
+            y: 0,
+            duration: 0.4,
+            ease: 'power2.out',
+            boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)'
+        });
+    });
+});
+
+// Mobile bottom navigation - active section highlighting
+const handleMobileNavHighlight = () => {
+    const sections = document.querySelectorAll('section[id]');
+    const mobileNavItems = document.querySelectorAll('.mobile-nav-item');
+    
+    // Add active class styles
+    const style = document.createElement('style');
+    style.textContent = `
+        .mobile-nav-item.active {
+            color: var(--primary-color);
+        }
+        .mobile-nav-item.active i {
+            color: var(--primary-color);
+        }
+    `;
+    document.head.appendChild(style);
+    
+    window.addEventListener('scroll', () => {
+        let scrollY = window.pageYOffset;
+        
+        sections.forEach(section => {
+            const sectionHeight = section.offsetHeight;
+            const sectionTop = section.offsetTop - 100;
+            const sectionId = section.getAttribute('id');
+            
+            if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                mobileNavItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('href') === `#${sectionId}`) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+        });
+    });
+};
+
+handleMobileNavHighlight();
+
+// Smooth scrolling for mobile nav links
+document.querySelectorAll('.mobile-nav-item').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        const targetId = this.getAttribute('href');
+        const targetElement = document.querySelector(targetId);
+        
+        if (targetElement) {
+            window.scrollTo({
+                top: targetElement.offsetTop - 80,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
