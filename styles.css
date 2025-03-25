@@ -31,16 +31,7 @@ body {
 
 /* Luxury cursor */
 .cursor {
-    width: 30px;
-    height: 30px;
-    border: 2px solid var(--primary-color);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    z-index: 9999;
-    mix-blend-mode: difference;
-    transition: transform 0.3s ease, width 0.3s ease, height 0.3s ease;
+    display: none; /* Hide the cursor instead of removing it completely to avoid JS errors */
 }
 
 /* Elegant header */
@@ -168,6 +159,7 @@ nav {
     height: 100vh;
     display: flex;
     align-items: center;
+    justify-content: center;
     padding: 0 5%;
     background-color: var(--light-color);
     position: relative;
@@ -183,7 +175,7 @@ nav {
     height: 100%;
     background: url('https://images.unsplash.com/photo-1517433670267-08bbd4be890f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80') no-repeat center center;
     background-size: cover;
-    opacity: 0.05;
+    opacity: 0.4;
     z-index: 0;
 }
 
@@ -846,11 +838,15 @@ footer::before {
         padding-top: 120px;
         height: auto;
         min-height: 100vh;
+        justify-content: center; /* Center content vertically */
     }
     
     .hero-content {
         margin-bottom: 4rem;
         padding-right: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center all hero content horizontally */
     }
     
     .hero h1::after {
@@ -860,6 +856,11 @@ footer::before {
     
     .hero p {
         margin: 0 auto 2.5rem;
+        text-align: center;
+    }
+    
+    .hero .btn {
+        margin: 0 auto; /* Center the button */
     }
     
     .about {
@@ -897,7 +898,7 @@ footer::before {
         right: 0;
         height: 100vh;
         top: 0;
-        background-color: white;
+        background-color: rgba(255, 255, 255, 0.98);
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -914,6 +915,23 @@ footer::before {
         margin: 1.5rem 0;
     }
     
+    .nav-links a {
+        font-size: 1.1rem;
+    }
+    
+    .nav-links a i {
+        font-size: 1.1rem;
+        margin-right: 10px;
+    }
+    
+    .nav-cta {
+        margin-top: 1.5rem;
+    }
+    
+    .nav-cta a {
+        padding: 0.8rem 2rem !important;
+    }
+    
     .burger {
         display: block;
         z-index: 1002;
@@ -921,6 +939,25 @@ footer::before {
     
     .nav-active {
         transform: translateX(0%);
+    }
+    
+    /* Add overlay when menu is open */
+    .nav-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        
+        pointer-events: none;
+        transition: opacity 0.5s ease;
+        z-index: 1000;
+    }
+    
+    .nav-overlay.active {
+        
+        pointer-events: all;
     }
     
     .gallery-container {
@@ -937,12 +974,28 @@ footer::before {
 }
 
 @media screen and (max-width: 576px) {
+    .hero {
+        padding-top: 100px; /* Reduce padding on very small screens */
+        justify-content: center;
+        align-items: center;
+    }
+    
     .hero h1 {
         font-size: 3rem;
     }
     
     .hero h2 {
         font-size: 1.5rem;
+        margin: 1.5rem 0 1rem; /* Adjust margins for better spacing */
+    }
+    
+    .hero p {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    .hero .btn {
+        padding: 12px 30px; /* Slightly smaller button on mobile */
     }
     
     .gallery-container {
@@ -967,5 +1020,376 @@ footer::before {
     to {
         opacity: 1;
         transform: translateX(0);
+    }
+}
+
+/* Chef Section */
+.chefs {
+    padding: 120px 5%;
+    background-color: white;
+    text-align: center;
+    position: relative;
+}
+
+.chefs::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('https://images.unsplash.com/photo-1517433670267-08bbd4be890f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2000&q=80') no-repeat center center;
+    background-size: cover;
+    opacity: 0.05;
+    z-index: 0;
+}
+
+.chefs h2 {
+    font-family: var(--font-heading);
+    font-size: 3rem;
+    color: var(--secondary-color);
+    margin-bottom: 3rem;
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+}
+
+.chefs h2::after {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 3px;
+    background: var(--primary-color);
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.chefs-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.chef-card {
+    background-color: var(--light-color);
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: var(--shadow-medium);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.chef-card:hover {
+    transform: translateY(-10px);
+    box-shadow: var(--shadow-strong);
+}
+
+.chef-image {
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+}
+
+.chef-placeholder {
+    height: 100%;
+    background-color: var(--secondary-color);
+    opacity: 0.2;
+    position: relative;
+}
+
+.chef-placeholder::before {
+    content: '\f2e7'; /* Chef hat icon from Font Awesome */
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 4rem;
+    color: var(--primary-color);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.chef-info {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.chef-info h3 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    color: var(--secondary-color);
+    margin-bottom: 0.5rem;
+}
+
+.chef-info h4 {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-style: italic;
+}
+
+.chef-info p {
+    margin-bottom: 1.5rem;
+    line-height: 1.7;
+    color: #555;
+    flex-grow: 1;
+}
+
+.chef-social {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: auto;
+}
+
+.chef-social a {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--light-color);
+    border: 1px solid var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--secondary-color);
+    transition: all 0.3s ease;
+}
+
+.chef-social a:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: translateY(-3px);
+}
+
+/* Single chef layout */
+.single-chef {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.single-chef .chef-card {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    align-items: stretch;
+    height: auto;
+}
+
+.single-chef .chef-image {
+    height: 100%;
+}
+
+.single-chef .chef-info {
+    text-align: left;
+    padding: 2.5rem;
+}
+
+.single-chef .chef-info h3 {
+    font-size: 2.2rem;
+}
+
+.single-chef .chef-social {
+    justify-content: flex-start;
+    margin-top: 2rem;
+}
+
+/* Add media queries for chef section responsiveness */
+@media screen and (max-width: 768px) {
+    .chefs-container {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+    
+    .chef-info h3 {
+        font-size: 1.5rem;
+    }
+    
+    .single-chef .chef-card {
+        grid-template-columns: 1fr;
+    }
+    
+    .single-chef .chef-image {
+        height: 300px;
+    }
+    
+    .single-chef .chef-info {
+        text-align: center;
+    }
+    
+    .single-chef .chef-social {
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .chefs h2 {
+        font-size: 2.2rem;
+    }
+    
+    .chef-image {
+        height: 200px;
+    }
+}
+
+/* Mobile Navigation Styles */
+.burger {
+    display: none;
+    cursor: pointer;
+}
+
+.burger div {
+    width: 25px;
+    height: 3px;
+    background-color: var(--secondary-color);
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+/* Transform burger into X when nav is active */
+.toggle .line1 {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.toggle .line2 {
+    opacity: 0;
+}
+
+.toggle .line3 {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+@media screen and (max-width: 768px) {
+    .nav-links {
+        position: fixed;
+        right: 0;
+        height: 100vh;
+        top: 0;
+        background-color: rgba(255, 255, 255, 0.98);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 70%;
+        transform: translateX(100%);
+        transition: transform 0.5s ease-in;
+        box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+        z-index: 1001;
+    }
+    
+    .nav-links li {
+        opacity: 0;
+        margin: 1.5rem 0;
+    }
+    
+    .nav-links a {
+        font-size: 1.1rem;
+    }
+    
+    .nav-links a i {
+        font-size: 1.1rem;
+        margin-right: 10px;
+    }
+    
+    .nav-cta {
+        margin-top: 1.5rem;
+    }
+    
+    .nav-cta a {
+        padding: 0.8rem 2rem !important;
+    }
+    
+    .burger {
+        display: block;
+        z-index: 1002;
+    }
+    
+    .nav-active {
+        transform: translateX(0%);
+    }
+    
+    /* Add overlay when menu is open */
+    .nav-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.5s ease;
+        z-index: 1000;
+    }
+    
+    .nav-overlay.active {
+        opacity: 1;
+        pointer-events: all;
+    }
+}
+
+/* Mobile Bottom Navigation */
+.mobile-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 999;
+    justify-content: space-around;
+    padding: 10px 0;
+    border-top: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.mobile-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: var(--dark-color);
+    font-size: 0.7rem;
+    padding: 5px 0;
+    transition: color 0.3s ease;
+}
+
+.mobile-nav-item i {
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+    color: var(--secondary-color);
+}
+
+.mobile-nav-item:hover, 
+.mobile-nav-item:active {
+    color: var(--primary-color);
+}
+
+.mobile-nav-item:hover i, 
+.mobile-nav-item:active i {
+    color: var(--primary-color);
+}
+
+@media screen and (max-width: 768px) {
+    .mobile-nav {
+        display: flex;
+    }
+    
+    /* Add padding to the bottom of the page to account for fixed nav */
+    body {
+        padding-bottom: 60px;
+    }
+    
+    /* Adjust footer padding to account for mobile nav */
+    footer {
+        padding-bottom: 80px;
     }
 }
