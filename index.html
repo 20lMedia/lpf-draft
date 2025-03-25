@@ -14,8 +14,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="cursor"></div>
-    
     <header>
         <nav>
             <div class="logo">
@@ -26,6 +24,7 @@
                 <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="#about"><i class="fas fa-book-open"></i> About</a></li>
                 <li><a href="#menu"><i class="fas fa-utensils"></i> Menu</a></li>
+                <li><a href="#chefs"><i class="fas fa-users"></i> Chef</a></li>
                 <li><a href="#gallery"><i class="fas fa-images"></i> Gallery</a></li>
                 <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
                 <li class="nav-cta"><a href="#" class="btn-small">Order Online</a></li>
@@ -38,6 +37,9 @@
         </nav>
     </header>
 
+    <!-- Navigation overlay for mobile -->
+    <div class="nav-overlay"></div>
+
     <section id="home" class="hero">
         <div class="hero-content">
             <h1>Le Petit Four</h1>
@@ -45,14 +47,11 @@
             <p>Indulge in the exquisite flavors of France</p>
             <button class="btn">Explore Our Menu</button>
         </div>
-        <div class="hero-image">
-            <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="French Pastries">
-        </div>
     </section>
 
     <section id="about" class="about">
         <div class="about-image">
-            <img src="https://images.unsplash.com/photo-1517433367423-c7e5b0f35086?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Our Bakery">
+            <img src="ourbakery.jpg" alt="Our Bakery">
         </div>
         <div class="about-content">
             <h2>Our Story</h2>
@@ -66,25 +65,25 @@
         <h2>Our Specialties</h2>
         <div class="menu-container">
             <div class="menu-item">
-                <img src="https://images.unsplash.com/photo-1623334044303-241021148842?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Croissants">
+                <img src="://images.unsplash.com/photo-1623334044303-241021148842?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Croissants">
                 <h3>Croissants</h3>
                 <p>Buttery, flaky, and perfectly golden</p>
                 <span class="price">$3.50</span>
             </div>
             <div class="menu-item">
-                <img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Macarons">
+                <img src="" alt="Macarons">
                 <h3>Macarons</h3>
                 <p>Delicate almond meringue cookies with ganache filling</p>
                 <span class="price">$2.75 each</span>
             </div>
             <div class="menu-item">
-                <img src="https://images.unsplash.com/photo-1602351447937-745cb720612f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Éclair">
+                <img src="" alt="Éclair">
                 <h3>Éclairs</h3>
                 <p>Choux pastry filled with cream and topped with chocolate</p>
                 <span class="price">$4.25</span>
             </div>
             <div class="menu-item">
-                <img src="https://images.unsplash.com/photo-1519915028121-7d3463d5b1ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Tarte Tatin">
+                <img src="" alt="Tarte Tatin">
                 <h3>Tarte Tatin</h3>
                 <p>Caramelized apple upside-down tart</p>
                 <span class="price">$5.75</span>
@@ -93,26 +92,49 @@
         <button class="btn menu-btn">View Full Menu</button>
     </section>
 
+    <section id="chefs" class="chefs">
+        <h2>Our Chef</h2>
+        <div class="chefs-container single-chef">
+            <div class="chef-card">
+                <div class="chef-image">
+                    <!-- Image placeholder -->
+                    <div class="chef-placeholder"></div>
+                </div>
+                <div class="chef-info">
+                    <h3>Marie Dubois</h3>
+                    <h4>Executive Chef & Founder</h4>
+                    <p>Trained in Paris under renowned pastry masters, Marie brings 20 years of experience and a passion for traditional French techniques with modern twists. Her exceptional talent for creating delicate pastries and authentic French bread has earned her recognition throughout the culinary world.</p>
+                    <p>After perfecting her craft in several prestigious Parisian bakeries, Marie moved abroad to share her love for French patisserie. In 2010, she founded Le Petit Four with the mission of bringing a true taste of France to every customer.</p>
+                    <div class="chef-social">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="gallery" class="gallery">
         <h2>Gallery</h2>
         <div class="gallery-container">
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1517433670267-08bbd4be890f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Bakery Interior">
+                <img src="" alt="Bakery Interior">
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Fresh Bread">
+                <img src="" alt="Fresh Bread">
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1603532648955-039310d9ed75?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Pastry Chef">
+                <img src="" alt="Pastry Chef">
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1587241321921-91a834d6d191?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Pastry Display">
+                <img src="" alt="Pastry Display">
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Coffee and Croissant">
+                <img src="" alt="Coffee and Croissant">
             </div>
             <div class="gallery-item">
-                <img src="https://images.unsplash.com/photo-1509365465985-25d11c17e812?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80" alt="Baking Process">
+                <img src="" alt="Baking Process">
             </div>
         </div>
     </section>
@@ -155,6 +177,26 @@
             <p class="copyright">© 2023 Le Petit Four. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Mobile Bottom Navigation -->
+    <div class="mobile-nav">
+        <a href="#home" class="mobile-nav-item">
+            <i class="fas fa-home"></i>
+            <span>Home</span>
+        </a>
+        <a href="#menu" class="mobile-nav-item">
+            <i class="fas fa-utensils"></i>
+            <span>Menu</span>
+        </a>
+        <a href="#chefs" class="mobile-nav-item">
+            <i class="fas fa-users"></i>
+            <span>Chef</span>
+        </a>
+        <a href="#contact" class="mobile-nav-item">
+            <i class="fas fa-envelope"></i>
+            <span>Contact</span>
+        </a>
+    </div>
 
     <script src="script.js"></script>
 </body>
